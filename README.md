@@ -8,6 +8,7 @@
 | 스케쥴 삭제    | DELETE | /api/schedules/{scheduleID} | 요청 Param | -        | 200:정상삭제 |
 ------
 ## ERD
+```mermaid
 erDiagram
     USER ||--o{ SCHEDULE : contains
     USER {
