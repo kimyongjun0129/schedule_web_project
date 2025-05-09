@@ -12,15 +12,16 @@
 erDiagram
     USER ||--o{ SCHEDULE : contains
     USER {
-        int userId PK
-        varchar(20) userName
-        varchar(20) id
-        varchar(20) password
+        bigInt userId PK
+        varchar(100) userName
+        varchar(100) id
+        varchar(100) password
     }
     SCHEDULE {
-        int scheduledId PK
-        int userID FK
+        bigInt scheduledId PK
+        bigInt userID FK
         datetime createAt
-        varchar(20) toDoContent
+        datetime updateAt
+        varchar(100) toDoContent
     }
 ```
