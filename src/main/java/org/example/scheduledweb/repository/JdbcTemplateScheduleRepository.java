@@ -11,12 +11,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Repository
 public class JdbcTemplateScheduleRepository implements ScheduleRepository{
@@ -31,7 +28,8 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     public ScheduleResponseDto saveSchedule(Schedule schedule) {
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("schedule") // 테이블명
-                .usingGeneratedKeyColumns("scheduleId"); // 자동 생성된 키
+                .usingGeneratedKeyColumns("scheduleId")
+                .usingColumns("userName", "toDoContent"); // 자동 생성된 키
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("userName", schedule.getUserName());
@@ -42,12 +40,25 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     }
 
     @Override
+    public List<ScheduleResponseDto> findAllSchedules() {
+        return jdbcTemplate.query("select * from schedule", scheduleRowMapper());
+    }
+
+    @Override
     public Schedule findScheduleByIdElseThrow(long id) {
-        List<Schedule> result = jdbcTemplate.query("select * from schedule where scheduleId = ?", scheduleRowMapper(), id);
+        List<Schedule> result = jdbcTemplate.query("select * from schedule where scheduleId = ?", scheduleRowMapper2(), id);
         return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exists id = " + id));
     }
 
-    private RowMapper<Schedule> scheduleRowMapper() {
+    private RowMapper<ScheduleResponseDto> scheduleRowMapper() {
+        return (rs, rowNum) -> new ScheduleResponseDto(
+                rs.getLong("scheduleId"),
+                rs.getString("userName"),
+                rs.getString("todoContent")
+        );
+    }
+
+    private RowMapper<Schedule> scheduleRowMapper2() {
         return (rs, rowNum) -> new Schedule(
                 rs.getLong("scheduleId"),
                 rs.getString("userName"),

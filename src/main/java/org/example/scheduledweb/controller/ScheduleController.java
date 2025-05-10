@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/schedules")
 public class ScheduleController {
@@ -26,6 +28,15 @@ public class ScheduleController {
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
         return new ResponseEntity<>(scheduleService.saveSchedule(requestDto), HttpStatus.CREATED);
+    }
+
+    /**
+     * 스케쥴 다건 조회 API
+     * @return : {@link  List<ScheduleResponseDto>} JSON 응답
+     */
+    @GetMapping
+    public List<ScheduleResponseDto> findAllSchedule() {
+        return scheduleService.findAllSchedules();
     }
 
     /**
