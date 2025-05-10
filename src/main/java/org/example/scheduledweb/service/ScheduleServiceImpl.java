@@ -25,7 +25,6 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Override
     public List<ScheduleResponseDto> findAllSchedules() {
-
         // 전체 조회
         return scheduleRepository.findAllSchedules();
     }

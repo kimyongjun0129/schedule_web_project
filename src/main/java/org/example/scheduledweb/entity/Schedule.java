@@ -21,9 +21,9 @@ public class Schedule {
         this.todoContent = todoContent;
     }
 
-    public Schedule(Long scheduleId, String userName, String todoContent) {
-        this.scheduleId = scheduleId;
+    public Schedule(String userName, String todoContent, Date updateAt) {
         this.userName = userName;
         this.todoContent = todoContent;
+        this.updateAt = updateAt;
     }
 }

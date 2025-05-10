@@ -36,7 +36,17 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
         parameters.put("toDoContent", schedule.getTodoContent());
 
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
-        return new ScheduleResponseDto(key.longValue(), schedule.getUserName(), schedule.getTodoContent());
+        long scheduleId = key.longValue();
+
+        String sql = "SELECT userName, toDoContent, updateAt FROM schedule WHERE scheduleId = ?";
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
+                new ScheduleResponseDto(
+                        rs.getString("userName"),
+                        rs.getString("toDoContent"),
+                        rs.getDate("updateAt")
+                )
+                ,scheduleId
+        );
     }
 
     @Override
@@ -52,17 +62,17 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
 
     private RowMapper<ScheduleResponseDto> scheduleRowMapper() {
         return (rs, rowNum) -> new ScheduleResponseDto(
-                rs.getLong("scheduleId"),
                 rs.getString("userName"),
-                rs.getString("todoContent")
+                rs.getString("todoContent"),
+                rs.getDate("updateAt")
         );
     }
 
     private RowMapper<Schedule> scheduleRowMapper2() {
         return (rs, rowNum) -> new Schedule(
-                rs.getLong("scheduleId"),
                 rs.getString("userName"),
-                rs.getString("todoContent")
+                rs.getString("todoContent"),
+                rs.getDate("updateAt")
         );
     }
 }
