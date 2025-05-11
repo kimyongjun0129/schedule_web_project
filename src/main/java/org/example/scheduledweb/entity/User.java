@@ -1,9 +1,12 @@
 package org.example.scheduledweb.entity;
 
+import java.util.Date;
+
 public class User {
 
     private Long userId;
-    private String name;
-    private Long id;
-    private Long password;
+    private String email;
+    private String userName;
+    private Date createAt;
+    private Date updateAt;
 }
