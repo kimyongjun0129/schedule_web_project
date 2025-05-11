@@ -1,22 +1,11 @@
-CREATE TABLE USER
-(
-    userId   BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '사용자 ID',
-    username VARCHAR(100) NOT NULL COMMENT '사용자명',
-    id       VARCHAR(100) NOT NULL UNIQUE COMMENT '아이디',  -- 아이디는 고유해야 함
-    password VARCHAR(100) NOT NULL COMMENT '비밀번호'
-);
-
-
 CREATE TABLE SCHEDULE
 (
     scheduleId  BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '일정 ID',
-#     userId      BIGINT NOT NULL COMMENT '사용자 ID',
+    password    VARCHAR(100) NOT NULL COMMENT '비밀번호',
     userName    VARCHAR(100) NOT NULL COMMENT '사용자 명',
     toDoContent VARCHAR(100) NOT NULL COMMENT '할일',
     createAt    TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '작성일',
     updateAt    TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일'
-#     -- 외래 키 제약 조건 추가
-#     FOREIGN KEY (userId) REFERENCES USER(userId) -- USER 테이블의 userId 참조
 );
 
 

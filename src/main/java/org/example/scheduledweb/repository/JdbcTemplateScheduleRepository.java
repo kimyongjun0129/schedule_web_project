@@ -29,9 +29,10 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("schedule") // 테이블명
                 .usingGeneratedKeyColumns("scheduleId") // 자동 생성된 키
-                .usingColumns("userName", "toDoContent");
+                .usingColumns("password", "userName", "toDoContent");
 
         Map<String, Object> parameters = new HashMap<>();
+        parameters.put("password", schedule.getPassword());
         parameters.put("userName", schedule.getUserName());
         parameters.put("toDoContent", schedule.getTodoContent());
 
@@ -60,6 +61,22 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
         return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exists id = " + id));
     }
 
+    @Override
+    public Schedule findSchedulePasswordByIdElseThrow(long id) {
+        List<Schedule> result = jdbcTemplate.query("select * from schedule where scheduleId = ?", scheduleRowMapper3(), id);
+        return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exists id = " + id));
+    }
+
+    @Override
+    public int updateUserNameOrToDoContent(long id, String userName, String toDoContent) {
+        return jdbcTemplate.update("update schedule set userName = ?, toDoContent = ? where scheduleId = ?", userName, toDoContent, id);
+    }
+
+    @Override
+    public int deleteSchedule(long id) {
+        return jdbcTemplate.update("delete from schedule where scheduleId = ?", id);
+    }
+
     private RowMapper<ScheduleResponseDto> scheduleRowMapper() {
         return (rs, rowNum) -> new ScheduleResponseDto(
                 rs.getString("userName"),
@@ -73,6 +90,12 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
                 rs.getString("userName"),
                 rs.getString("todoContent"),
                 rs.getDate("updateAt")
+        );
+    }
+
+    private RowMapper<Schedule> scheduleRowMapper3() {
+        return (rs, rowNum) -> new Schedule(
+                rs.getLong("password")
         );
     }
 }

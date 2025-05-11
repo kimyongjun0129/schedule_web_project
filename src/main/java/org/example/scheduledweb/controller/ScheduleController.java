@@ -22,7 +22,7 @@ public class ScheduleController {
 
     /**
      * 스케쥴 생성 API
-     * @param : {@link ScheduleRequestDto} 스케쥴 생성 요청 객체
+     * param : {@link ScheduleRequestDto} 스케쥴 생성 요청 객체
      * @return : {@link ResponseEntity<ScheduleResponseDto>} JSON 응답
      */
     @PostMapping
@@ -48,5 +48,36 @@ public class ScheduleController {
     @GetMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id) {
         return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.OK);
+    }
+
+    /**
+     * 스케줄 단건 수정 API
+     * Param id 식별자
+     * Return : {@link ResponseEntity<ScheduleResponseDto>} JSON 응답
+     * @exception ResponseStatusException 식별자로 조회된 Schedule이 없는 경우 404 Not Found
+     */
+    @PatchMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> updatetoDoContentOrUserName(
+            @PathVariable long id,
+            @RequestBody ScheduleRequestDto requestDto
+    ) {
+        return new ResponseEntity<>(scheduleService.updateUserNameOrToDoContent(id, requestDto.getPassword(), requestDto.getUserName(), requestDto.getToDoContent()), HttpStatus.OK);
+    }
+
+    /**
+     * 스케줄 단건 수정 API
+     * Param id 식별자
+     * return {@link ResponseEntity<Void>} 성공시 Data 없이 200OK 상태코드만 응답.
+     * @exception ResponseStatusException 식별자로 조회된 Schedule이 없는 경우 404 Not Found
+     */
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSchedule(
+            @PathVariable long id,
+            @RequestBody ScheduleRequestDto requestDto
+    ) {
+        scheduleService.deleteSchedule(id, requestDto.getPassword());
+        // 성공한 경우
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

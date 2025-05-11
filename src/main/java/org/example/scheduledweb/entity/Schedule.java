@@ -9,14 +9,15 @@ import java.util.Date;
 @AllArgsConstructor
 public class Schedule {
 
-    private Long scheduleId;
-    private Long userId;
+    private long scheduleId;
+    private long password;
     private String userName;
     private String todoContent;
     private Date createAt;
     private Date updateAt;
 
-    public Schedule(String userName, String todoContent) {
+    public Schedule(long password, String userName, String todoContent) {
+        this.password = password;
         this.userName = userName;
         this.todoContent = todoContent;
     }
@@ -25,5 +26,9 @@ public class Schedule {
         this.userName = userName;
         this.todoContent = todoContent;
         this.updateAt = updateAt;
+    }
+
+    public Schedule(long password) {
+        this.password = password;
     }
 }
