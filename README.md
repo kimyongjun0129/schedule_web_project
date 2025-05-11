@@ -10,18 +10,12 @@
 ## ERD
 ```mermaid
 erDiagram
-    USER ||--o{ SCHEDULE : contains
-    USER {
-        bigInt userId PK
-        varchar(100) userName
-        varchar(100) id
-        varchar(100) password
-    }
     SCHEDULE {
         bigInt scheduledId PK
-        bigInt userID FK
+        bigInt password
+        varchar(100) userName
+        varchar(100) toDoContent
         datetime createAt
         datetime updateAt
-        varchar(100) toDoContent
     }
 ```

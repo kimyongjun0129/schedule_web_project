@@ -28,8 +28,8 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     public ScheduleResponseDto saveSchedule(Schedule schedule) {
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("schedule") // 테이블명
-                .usingGeneratedKeyColumns("scheduleId")
-                .usingColumns("userName", "toDoContent"); // 자동 생성된 키
+                .usingGeneratedKeyColumns("scheduleId") // 자동 생성된 키
+                .usingColumns("userName", "toDoContent");
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("userName", schedule.getUserName());
