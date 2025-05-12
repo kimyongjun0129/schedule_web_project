@@ -52,7 +52,7 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public ScheduleResponseDto updateToDoContent(long id, long userId, String toDoContent) {
+    public void updateToDoContent(long id, long userId, String toDoContent) {
         // 필수값 검증
         if (toDoContent == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The userName and toDoContent are required values.");
@@ -60,24 +60,15 @@ public class ScheduleServiceImpl implements ScheduleService{
 
         // 사용자 ID 검증
         if (userId != scheduleRepository.findScheduleUserIdById(id).getUserId()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The password is not the same as the password for this schedule");
-        }
-
-        int updatedRow = scheduleRepository.updateUserNameOrToDoContent(id, toDoContent);
-
-        // NPE 방지
-        if (updatedRow == 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The userId is not the same as the userId for this schedule");
         }
 
         // 식별자의 schedule 없다면?
-        Schedule schedule = scheduleRepository.findScheduleById(id);
+        int scheduleCount = scheduleRepository.updateToDoContent(id, toDoContent);
 
-        if (schedule == null) {
+        if (scheduleCount == 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exists id = " + id);
         }
-
-        return new ScheduleResponseDto(schedule);
     }
 
     @Override

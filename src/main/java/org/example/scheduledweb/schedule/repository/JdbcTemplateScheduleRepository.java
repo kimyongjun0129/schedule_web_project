@@ -72,7 +72,8 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     }
 
     @Override
-    public int updateUserNameOrToDoContent(long id, String toDoContent) {
+    public int updateToDoContent(long id, String toDoContent) {
+        
         return jdbcTemplate.update("update schedule set toDoContent = ? where scheduleId = ?", toDoContent, id);
     }
 

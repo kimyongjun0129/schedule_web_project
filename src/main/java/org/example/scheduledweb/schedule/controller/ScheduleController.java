@@ -62,7 +62,8 @@ public class ScheduleController {
             @PathVariable long id,
             @RequestBody ScheduleRequestDto requestDto
     ) {
-        return new ResponseEntity<>(scheduleService.updateToDoContent(id, requestDto.getUserId(), requestDto.getToDoContent()), HttpStatus.OK);
+        scheduleService.updateToDoContent(id, requestDto.getUserId(), requestDto.getToDoContent());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
