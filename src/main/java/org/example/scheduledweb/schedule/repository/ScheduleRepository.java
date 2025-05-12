@@ -12,13 +12,15 @@ public interface ScheduleRepository {
 
     List<ScheduleResponseDto> findAllSchedules();
 
-    Schedule findScheduleByIdElseThrow(long id);
+    Schedule findScheduleById(long id);
 
-    Schedule findScheduleUserIdByIdElseThrow(long id);
+    Schedule findScheduleUserIdById(long id);
 
     int updateUserNameOrToDoContent(long id, String toDoContent);
 
     int deleteSchedule (long id);
 
     List<ScheduleResponseDto> pagination(Paging paging);
+
+    Integer findUserByUserId(long userId);
 }

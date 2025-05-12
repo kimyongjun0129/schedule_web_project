@@ -32,13 +32,6 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
                 .usingGeneratedKeyColumns("scheduleId") // 자동 생성된 키
                 .usingColumns("userId", "userName", "toDoContent");
 
-        String userCheckSql = "SELECT COUNT(*) FROM user WHERE userId = ?";
-        Integer userCount = jdbcTemplate.queryForObject(userCheckSql, Integer.class, schedule.getUserId());
-
-        if (userCount == null || userCount == 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This user doesn't exist.");
-        }
-
         String userNameSql = "SELECT userName FROM user WHERE userId = ?";
         String userName = jdbcTemplate.queryForObject(userNameSql, String.class, schedule.getUserId());
 
@@ -67,15 +60,15 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     }
 
     @Override
-    public Schedule findScheduleByIdElseThrow(long id) {
+    public Schedule findScheduleById(long id) {
         List<Schedule> result = jdbcTemplate.query("select * from schedule where scheduleId = ?", scheduleRowMapper2(), id);
-        return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exists id = " + id));
+        return result.stream().findAny().orElse(null);
     }
 
     @Override
-    public Schedule findScheduleUserIdByIdElseThrow(long id) {
+    public Schedule findScheduleUserIdById(long id) {
         List<Schedule> result = jdbcTemplate.query("select * from schedule where scheduleId = ?", scheduleRowMapper3(), id);
-        return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exists id = " + id));
+        return result.stream().findAny().orElse(null);
     }
 
     @Override
@@ -92,8 +85,14 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     public List<ScheduleResponseDto> pagination(Paging paging) {
         String sql = "select * from schedule ORDER BY updateAt DESC LIMIT ? OFFSET ?";
         int pageLimit = paging.getPageSize();
-        int pageOffset = (paging.getPageSize()-1) * paging.getPageSize();
+        int pageOffset = (paging.getPageNum()-1) * paging.getPageSize();
         return jdbcTemplate.query(sql, scheduleRowMapper(), pageLimit, pageOffset);
+    }
+
+    @Override
+    public Integer findUserByUserId(long userId) {
+        String userCheckSql = "SELECT COUNT(*) FROM user WHERE userId = ?";
+        return jdbcTemplate.queryForObject(userCheckSql, Integer.class, userId);
     }
 
     private RowMapper<ScheduleResponseDto> scheduleRowMapper() {

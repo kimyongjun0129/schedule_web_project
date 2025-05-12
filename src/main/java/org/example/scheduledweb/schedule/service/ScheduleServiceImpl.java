@@ -22,6 +22,14 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Override
     public ScheduleResponseDto saveSchedule(ScheduleRequestDto requestDto) {
+        // 등록된 user인지 userId로 검증
+        Integer userCount = scheduleRepository.findUserByUserId(requestDto.getUserId());
+
+        // userCount가 0이면 비등록 유저, 1이면 등록 유저
+        if (userCount == null || userCount == 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This user doesn't exist.");
+        }
+
         Schedule schedule = new Schedule(requestDto.getUserId(), requestDto.getToDoContent());
         return scheduleRepository.saveSchedule(schedule);
     }
@@ -34,7 +42,12 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Override
     public ScheduleResponseDto findScheduleById(long id) {
-        Schedule schedule = scheduleRepository.findScheduleByIdElseThrow(id);
+        Schedule schedule = scheduleRepository.findScheduleById(id);
+
+        if (schedule == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exists id = " + id);
+        }
+
         return new ScheduleResponseDto(schedule);
     }
 
@@ -45,8 +58,8 @@ public class ScheduleServiceImpl implements ScheduleService{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The userName and toDoContent are required values.");
         }
 
-        // 비밀번호 검증
-        if (userId != scheduleRepository.findScheduleUserIdByIdElseThrow(id).getUserId()) {
+        // 사용자 ID 검증
+        if (userId != scheduleRepository.findScheduleUserIdById(id).getUserId()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The password is not the same as the password for this schedule");
         }
 
@@ -58,15 +71,19 @@ public class ScheduleServiceImpl implements ScheduleService{
         }
 
         // 식별자의 schedule 없다면?
-        Schedule schedule = scheduleRepository.findScheduleByIdElseThrow(id);
+        Schedule schedule = scheduleRepository.findScheduleById(id);
+
+        if (schedule == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exists id = " + id);
+        }
 
         return new ScheduleResponseDto(schedule);
     }
 
     @Override
     public void deleteSchedule(long id, long userId) {
-        // 비밀번호 검증
-        if (userId != scheduleRepository.findScheduleUserIdByIdElseThrow(id).getUserId()) {
+        // 사용자 ID 검증
+        if (userId != scheduleRepository.findScheduleUserIdById(id).getUserId()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The password is not the same as the password for this schedule");
         }
 
