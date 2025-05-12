@@ -29,10 +29,17 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("schedule") // 테이블명
                 .usingGeneratedKeyColumns("scheduleId") // 자동 생성된 키
-                .usingColumns("password", "userName", "toDoContent");
+                .usingColumns("userId", "userName", "toDoContent");
+
+        String userCheckSql = "SELECT COUNT(*) FROM user WHERE userId = ?";
+        Integer userCount = jdbcTemplate.queryForObject(userCheckSql, Integer.class, schedule.getUserId());
+
+        if (userCount == null || userCount == 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This user doesn't exist.");
+        }
 
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("password", schedule.getPassword());
+        parameters.put("userId", schedule.getUserId());
         parameters.put("userName", schedule.getUserName());
         parameters.put("toDoContent", schedule.getTodoContent());
 

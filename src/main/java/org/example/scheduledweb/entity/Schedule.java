@@ -10,14 +10,14 @@ import java.util.Date;
 public class Schedule {
 
     private long scheduleId;
-    private long password;
+    private long userId;
     private String userName;
     private String todoContent;
     private Date createAt;
     private Date updateAt;
 
-    public Schedule(long password, String userName, String todoContent) {
-        this.password = password;
+    public Schedule(long userId, String userName, String todoContent) {
+        this.userId = userId;
         this.userName = userName;
         this.todoContent = todoContent;
     }
@@ -28,7 +28,7 @@ public class Schedule {
         this.updateAt = updateAt;
     }
 
-    public Schedule(long password) {
-        this.password = password;
+    public Schedule(long userId) {
+        this.userId = userId;
     }
 }

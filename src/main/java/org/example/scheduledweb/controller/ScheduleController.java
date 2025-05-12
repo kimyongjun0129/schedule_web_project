@@ -61,7 +61,7 @@ public class ScheduleController {
             @PathVariable long id,
             @RequestBody ScheduleRequestDto requestDto
     ) {
-        return new ResponseEntity<>(scheduleService.updateUserNameOrToDoContent(id, requestDto.getPassword(), requestDto.getUserName(), requestDto.getToDoContent()), HttpStatus.OK);
+        return new ResponseEntity<>(scheduleService.updateUserNameOrToDoContent(id, requestDto.getUserId(), requestDto.getUserName(), requestDto.getToDoContent()), HttpStatus.OK);
     }
 
     /**
@@ -76,7 +76,7 @@ public class ScheduleController {
             @PathVariable long id,
             @RequestBody ScheduleRequestDto requestDto
     ) {
-        scheduleService.deleteSchedule(id, requestDto.getPassword());
+        scheduleService.deleteSchedule(id, requestDto.getUserId());
         // 성공한 경우
         return new ResponseEntity<>(HttpStatus.OK);
     }

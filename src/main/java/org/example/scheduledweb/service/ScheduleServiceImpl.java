@@ -21,7 +21,7 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Override
     public ScheduleResponseDto saveSchedule(ScheduleRequestDto requestDto) {
-        Schedule schedule = new Schedule(requestDto.getPassword(), requestDto.getUserName(), requestDto.getToDoContent());
+        Schedule schedule = new Schedule(requestDto.getUserId(), requestDto.getUserName(), requestDto.getToDoContent());
         return scheduleRepository.saveSchedule(schedule);
     }
 
@@ -45,7 +45,7 @@ public class ScheduleServiceImpl implements ScheduleService{
         }
 
         // 비밀번호 검증
-        if (password != scheduleRepository.findSchedulePasswordByIdElseThrow(id).getPassword()) {
+        if (password != scheduleRepository.findSchedulePasswordByIdElseThrow(id).getUserId()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The password is not the same as the password for this schedule");
         }
 
@@ -65,7 +65,7 @@ public class ScheduleServiceImpl implements ScheduleService{
     @Override
     public void deleteSchedule(long id, long password) {
         // 비밀번호 검증
-        if (password != scheduleRepository.findSchedulePasswordByIdElseThrow(id).getPassword()) {
+        if (password != scheduleRepository.findSchedulePasswordByIdElseThrow(id).getUserId()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The password is not the same as the password for this schedule");
         }
 
