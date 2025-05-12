@@ -1,6 +1,7 @@
 package org.example.scheduledweb.schedule.repository;
 
 import org.example.scheduledweb.schedule.dto.ScheduleResponseDto;
+import org.example.scheduledweb.schedule.entity.Paging;
 import org.example.scheduledweb.schedule.entity.Schedule;
 
 import java.util.List;
@@ -19,5 +20,5 @@ public interface ScheduleRepository {
 
     int deleteSchedule (long id);
 
-    List<ScheduleResponseDto> pagination(int pageNum, int pageSize);
+    List<ScheduleResponseDto> pagination(Paging paging);
 }

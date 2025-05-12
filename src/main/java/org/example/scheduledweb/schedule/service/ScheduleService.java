@@ -2,6 +2,7 @@ package org.example.scheduledweb.schedule.service;
 
 import org.example.scheduledweb.schedule.dto.ScheduleRequestDto;
 import org.example.scheduledweb.schedule.dto.ScheduleResponseDto;
+import org.example.scheduledweb.schedule.entity.Paging;
 
 import java.util.List;
 
@@ -17,6 +18,6 @@ public interface ScheduleService {
 
     void deleteSchedule(long id, long password);
 
-    List<ScheduleResponseDto> pagination (int pageNum, int pageSize);
+    List<ScheduleResponseDto> pagination (Paging paging);
 
 }

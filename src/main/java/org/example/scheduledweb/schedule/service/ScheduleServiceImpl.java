@@ -2,6 +2,7 @@ package org.example.scheduledweb.schedule.service;
 
 import org.example.scheduledweb.schedule.dto.ScheduleRequestDto;
 import org.example.scheduledweb.schedule.dto.ScheduleResponseDto;
+import org.example.scheduledweb.schedule.entity.Paging;
 import org.example.scheduledweb.schedule.entity.Schedule;
 import org.example.scheduledweb.schedule.repository.ScheduleRepository;
 import org.springframework.http.HttpStatus;
@@ -78,8 +79,8 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public List<ScheduleResponseDto> pagination(int pageNum, int pageSize) {
-        return scheduleRepository.pagination(pageNum, pageSize);
+    public List<ScheduleResponseDto> pagination(Paging paging) {
+        return scheduleRepository.pagination(paging);
     }
 }
 

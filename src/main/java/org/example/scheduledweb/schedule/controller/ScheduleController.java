@@ -2,6 +2,7 @@ package org.example.scheduledweb.schedule.controller;
 
 import org.example.scheduledweb.schedule.dto.ScheduleRequestDto;
 import org.example.scheduledweb.schedule.dto.ScheduleResponseDto;
+import org.example.scheduledweb.schedule.entity.Paging;
 import org.example.scheduledweb.schedule.service.ScheduleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -91,6 +92,7 @@ public class ScheduleController {
         @RequestParam("pageNum") int pageNum,
         @RequestParam("pageSize") int pageSize
     ) {
-        return scheduleService.pagination(pageNum, pageSize);
+        Paging paging = new Paging(pageNum, pageSize);
+        return scheduleService.pagination(paging);
     }
 }

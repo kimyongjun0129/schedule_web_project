@@ -1,6 +1,7 @@
 package org.example.scheduledweb.schedule.repository;
 
 import org.example.scheduledweb.schedule.dto.ScheduleResponseDto;
+import org.example.scheduledweb.schedule.entity.Paging;
 import org.example.scheduledweb.schedule.entity.Schedule;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -88,9 +89,9 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     }
 
     @Override
-    public List<ScheduleResponseDto> pagination(int pageNum, int pageSize) {
+    public List<ScheduleResponseDto> pagination(Paging paging) {
         String sql = "select * from schedule ORDER BY updateAt DESC LIMIT ? OFFSET ?";
-        return jdbcTemplate.query(sql, scheduleRowMapper(), pageSize, (pageNum-1) * pageSize);
+        return jdbcTemplate.query(sql, scheduleRowMapper(), paging.getPageSize(), (paging.getPageSize()-1) * paging.getPageSize());
     }
 
     private RowMapper<ScheduleResponseDto> scheduleRowMapper() {
