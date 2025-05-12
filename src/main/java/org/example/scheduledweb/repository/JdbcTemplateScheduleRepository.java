@@ -38,9 +38,12 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This user doesn't exist.");
         }
 
+        String userNameSql = "SELECT userName FROM user WHERE userId = ?";
+        String userName = jdbcTemplate.queryForObject(userNameSql, String.class, schedule.getUserId());
+
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("userId", schedule.getUserId());
-        parameters.put("userName", schedule.getUserName());
+        parameters.put("userName", userName);
         parameters.put("toDoContent", schedule.getTodoContent());
 
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
@@ -69,14 +72,14 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     }
 
     @Override
-    public Schedule findSchedulePasswordByIdElseThrow(long id) {
+    public Schedule findScheduleUserIdByIdElseThrow(long id) {
         List<Schedule> result = jdbcTemplate.query("select * from schedule where scheduleId = ?", scheduleRowMapper3(), id);
         return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exists id = " + id));
     }
 
     @Override
-    public int updateUserNameOrToDoContent(long id, String userName, String toDoContent) {
-        return jdbcTemplate.update("update schedule set userName = ?, toDoContent = ? where scheduleId = ?", userName, toDoContent, id);
+    public int updateUserNameOrToDoContent(long id, String toDoContent) {
+        return jdbcTemplate.update("update schedule set toDoContent = ? where scheduleId = ?", toDoContent, id);
     }
 
     @Override
@@ -102,7 +105,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
 
     private RowMapper<Schedule> scheduleRowMapper3() {
         return (rs, rowNum) -> new Schedule(
-                rs.getLong("password")
+                rs.getLong("userId")
         );
     }
 }

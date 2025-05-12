@@ -21,7 +21,7 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Override
     public ScheduleResponseDto saveSchedule(ScheduleRequestDto requestDto) {
-        Schedule schedule = new Schedule(requestDto.getUserId(), requestDto.getUserName(), requestDto.getToDoContent());
+        Schedule schedule = new Schedule(requestDto.getUserId(), requestDto.getToDoContent());
         return scheduleRepository.saveSchedule(schedule);
     }
 
@@ -38,18 +38,18 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public ScheduleResponseDto updateUserNameOrToDoContent(long id, long password, String userName, String toDoContent) {
+    public ScheduleResponseDto updateToDoContent(long id, long userId, String toDoContent) {
         // 필수값 검증
-        if (userName == null || toDoContent == null) {
+        if (toDoContent == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The userName and toDoContent are required values.");
         }
 
         // 비밀번호 검증
-        if (password != scheduleRepository.findSchedulePasswordByIdElseThrow(id).getUserId()) {
+        if (userId != scheduleRepository.findScheduleUserIdByIdElseThrow(id).getUserId()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The password is not the same as the password for this schedule");
         }
 
-        int updatedRow = scheduleRepository.updateUserNameOrToDoContent(id, userName, toDoContent);
+        int updatedRow = scheduleRepository.updateUserNameOrToDoContent(id, toDoContent);
 
         // NPE 방지
         if (updatedRow == 0) {
@@ -63,9 +63,9 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public void deleteSchedule(long id, long password) {
+    public void deleteSchedule(long id, long userId) {
         // 비밀번호 검증
-        if (password != scheduleRepository.findSchedulePasswordByIdElseThrow(id).getUserId()) {
+        if (userId != scheduleRepository.findScheduleUserIdByIdElseThrow(id).getUserId()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The password is not the same as the password for this schedule");
         }
 

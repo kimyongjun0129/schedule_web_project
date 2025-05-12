@@ -13,9 +13,9 @@ public interface ScheduleRepository {
 
     Schedule findScheduleByIdElseThrow(long id);
 
-    Schedule findSchedulePasswordByIdElseThrow(long id);
+    Schedule findScheduleUserIdByIdElseThrow(long id);
 
-    int updateUserNameOrToDoContent(long id, String userName, String toDoContent);
+    int updateUserNameOrToDoContent(long id, String toDoContent);
 
     int deleteSchedule (long id);
 }

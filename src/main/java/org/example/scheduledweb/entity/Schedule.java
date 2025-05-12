@@ -16,9 +16,8 @@ public class Schedule {
     private Date createAt;
     private Date updateAt;
 
-    public Schedule(long userId, String userName, String todoContent) {
+    public Schedule(long userId, String todoContent) {
         this.userId = userId;
-        this.userName = userName;
         this.todoContent = todoContent;
     }
 
