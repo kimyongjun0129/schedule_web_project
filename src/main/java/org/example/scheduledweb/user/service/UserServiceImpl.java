@@ -1,6 +1,6 @@
 package org.example.scheduledweb.user.service;
 
-import org.example.scheduledweb.schedule.entity.User;
+import org.example.scheduledweb.user.entity.User;
 import org.example.scheduledweb.user.repository.UserRepository;
 import org.example.scheduledweb.user.dto.UserRequestDto;
 import org.example.scheduledweb.user.dto.UserResponseDto;
