@@ -45,21 +45,27 @@ public class ScheduleServiceImpl implements ScheduleService{
         Schedule schedule = scheduleRepository.findScheduleById(id);
 
         if (schedule == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exists id = " + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This schedule Does not exists (schedule id : " + id + ")");
         }
 
         return new ScheduleResponseDto(schedule);
     }
 
     @Override
-    public void updateToDoContent(long id, long userId, String toDoContent) {
+    public void updateToDoContent(long id, Long userId, String toDoContent) {
         // 필수값 검증
         if (toDoContent == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The userName and toDoContent are required values.");
         }
 
-        // 사용자 ID 검증
-        if (userId != scheduleRepository.findScheduleUserIdById(id).getUserId()) {
+        // 유효한 사용자인지 검증
+        Schedule schedule = scheduleRepository.findScheduleByUserId(userId);
+
+        if (schedule == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This user doesn't exist.");
+        }
+
+        if (userId != schedule.getUserId()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The userId is not the same as the userId for this schedule");
         }
 
@@ -67,14 +73,14 @@ public class ScheduleServiceImpl implements ScheduleService{
         int scheduleCount = scheduleRepository.updateToDoContent(id, toDoContent);
 
         if (scheduleCount == 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exists id = " + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This schedule Does not exists (schedule id : " + id + ")");
         }
     }
 
     @Override
     public void deleteSchedule(long id, long userId) {
         // 사용자 ID 검증
-        if (userId != scheduleRepository.findScheduleUserIdById(id).getUserId()) {
+        if (userId != scheduleRepository.findScheduleByUserId(id).getUserId()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The password is not the same as the password for this schedule");
         }
 

@@ -66,14 +66,13 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     }
 
     @Override
-    public Schedule findScheduleUserIdById(long id) {
-        List<Schedule> result = jdbcTemplate.query("select * from schedule where scheduleId = ?", scheduleRowMapper3(), id);
+    public Schedule findScheduleByUserId(long id) {
+        List<Schedule> result = jdbcTemplate.query("select * from schedule where userId = ?", scheduleRowMapper3(), id);
         return result.stream().findAny().orElse(null);
     }
 
     @Override
     public int updateToDoContent(long id, String toDoContent) {
-        
         return jdbcTemplate.update("update schedule set toDoContent = ? where scheduleId = ?", toDoContent, id);
     }
 

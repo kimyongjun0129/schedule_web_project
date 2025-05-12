@@ -58,7 +58,7 @@ public class ScheduleController {
      * @exception ResponseStatusException 식별자로 조회된 Schedule이 없는 경우 404 Not Found
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<ScheduleResponseDto> updatetoDoContent(
+    public ResponseEntity<ScheduleResponseDto> updatetoDoContent (
             @PathVariable long id,
             @RequestBody ScheduleRequestDto requestDto
     ) {
