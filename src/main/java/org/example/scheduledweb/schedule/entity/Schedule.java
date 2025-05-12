@@ -1,4 +1,4 @@
-package org.example.scheduledweb.entity;
+package org.example.scheduledweb.schedule.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

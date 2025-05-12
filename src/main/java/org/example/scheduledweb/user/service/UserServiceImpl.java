@@ -1,9 +1,9 @@
-package org.example.scheduledweb.service;
+package org.example.scheduledweb.user.service;
 
-import org.example.scheduledweb.dto.UserRequestDto;
-import org.example.scheduledweb.dto.UserResponseDto;
-import org.example.scheduledweb.entity.User;
-import org.example.scheduledweb.repository.UserRepository;
+import org.example.scheduledweb.schedule.entity.User;
+import org.example.scheduledweb.user.repository.UserRepository;
+import org.example.scheduledweb.user.dto.UserRequestDto;
+import org.example.scheduledweb.user.dto.UserResponseDto;
 import org.springframework.stereotype.Service;
 
 @Service

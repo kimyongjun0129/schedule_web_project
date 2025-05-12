@@ -1,7 +1,7 @@
-package org.example.scheduledweb.repository;
+package org.example.scheduledweb.schedule.repository;
 
-import org.example.scheduledweb.dto.ScheduleResponseDto;
-import org.example.scheduledweb.entity.Schedule;
+import org.example.scheduledweb.schedule.dto.ScheduleResponseDto;
+import org.example.scheduledweb.schedule.entity.Schedule;
 
 import java.util.List;
 

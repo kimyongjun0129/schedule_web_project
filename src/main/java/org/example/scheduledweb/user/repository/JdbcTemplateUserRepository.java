@@ -1,8 +1,7 @@
-package org.example.scheduledweb.repository;
+package org.example.scheduledweb.user.repository;
 
-import org.example.scheduledweb.dto.ScheduleResponseDto;
-import org.example.scheduledweb.dto.UserResponseDto;
-import org.example.scheduledweb.entity.User;
+import org.example.scheduledweb.schedule.entity.User;
+import org.example.scheduledweb.user.dto.UserResponseDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;

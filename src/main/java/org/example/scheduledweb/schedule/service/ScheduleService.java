@@ -1,7 +1,7 @@
-package org.example.scheduledweb.service;
+package org.example.scheduledweb.schedule.service;
 
-import org.example.scheduledweb.dto.ScheduleRequestDto;
-import org.example.scheduledweb.dto.ScheduleResponseDto;
+import org.example.scheduledweb.schedule.dto.ScheduleRequestDto;
+import org.example.scheduledweb.schedule.dto.ScheduleResponseDto;
 
 import java.util.List;
 

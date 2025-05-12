@@ -1,8 +1,8 @@
-package org.example.scheduledweb.controller;
+package org.example.scheduledweb.schedule.controller;
 
-import org.example.scheduledweb.dto.ScheduleRequestDto;
-import org.example.scheduledweb.dto.ScheduleResponseDto;
-import org.example.scheduledweb.service.ScheduleService;
+import org.example.scheduledweb.schedule.dto.ScheduleRequestDto;
+import org.example.scheduledweb.schedule.dto.ScheduleResponseDto;
+import org.example.scheduledweb.schedule.service.ScheduleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

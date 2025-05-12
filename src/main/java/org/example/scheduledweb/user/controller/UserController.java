@@ -1,8 +1,8 @@
-package org.example.scheduledweb.controller;
+package org.example.scheduledweb.user.controller;
 
-import org.example.scheduledweb.dto.UserRequestDto;
-import org.example.scheduledweb.dto.UserResponseDto;
-import org.example.scheduledweb.service.UserService;
+import org.example.scheduledweb.user.dto.UserRequestDto;
+import org.example.scheduledweb.user.dto.UserResponseDto;
+import org.example.scheduledweb.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

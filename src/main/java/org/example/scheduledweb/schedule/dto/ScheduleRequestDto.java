@@ -1,4 +1,4 @@
-package org.example.scheduledweb.dto;
+package org.example.scheduledweb.schedule.dto;
 
 import lombok.Getter;
 

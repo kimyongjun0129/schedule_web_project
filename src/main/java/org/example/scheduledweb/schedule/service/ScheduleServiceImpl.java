@@ -1,9 +1,9 @@
-package org.example.scheduledweb.service;
+package org.example.scheduledweb.schedule.service;
 
-import org.example.scheduledweb.dto.ScheduleRequestDto;
-import org.example.scheduledweb.dto.ScheduleResponseDto;
-import org.example.scheduledweb.entity.Schedule;
-import org.example.scheduledweb.repository.ScheduleRepository;
+import org.example.scheduledweb.schedule.dto.ScheduleRequestDto;
+import org.example.scheduledweb.schedule.dto.ScheduleResponseDto;
+import org.example.scheduledweb.schedule.entity.Schedule;
+import org.example.scheduledweb.schedule.repository.ScheduleRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
