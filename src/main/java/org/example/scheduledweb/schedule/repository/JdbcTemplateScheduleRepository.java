@@ -91,7 +91,9 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     @Override
     public List<ScheduleResponseDto> pagination(Paging paging) {
         String sql = "select * from schedule ORDER BY updateAt DESC LIMIT ? OFFSET ?";
-        return jdbcTemplate.query(sql, scheduleRowMapper(), paging.getPageSize(), (paging.getPageSize()-1) * paging.getPageSize());
+        int pageLimit = paging.getPageSize();
+        int pageOffset = (paging.getPageSize()-1) * paging.getPageSize();
+        return jdbcTemplate.query(sql, scheduleRowMapper(), pageLimit, pageOffset);
     }
 
     private RowMapper<ScheduleResponseDto> scheduleRowMapper() {
