@@ -1,5 +1,6 @@
 package org.example.scheduledweb.user.controller;
 
+import jakarta.validation.Valid;
 import org.example.scheduledweb.user.dto.UserRequestDto;
 import org.example.scheduledweb.user.dto.UserResponseDto;
 import org.example.scheduledweb.user.service.UserService;
@@ -21,7 +22,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto requestDto) {
+    public ResponseEntity<UserResponseDto> createUser(@RequestBody @Valid UserRequestDto requestDto) {
         return new ResponseEntity<>(userService.saveUser(requestDto), HttpStatus.CREATED);
     }
 }

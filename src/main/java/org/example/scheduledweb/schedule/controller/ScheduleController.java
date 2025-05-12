@@ -1,11 +1,13 @@
 package org.example.scheduledweb.schedule.controller;
 
+import jakarta.validation.Valid;
 import org.example.scheduledweb.schedule.dto.ScheduleRequestDto;
 import org.example.scheduledweb.schedule.dto.ScheduleResponseDto;
 import org.example.scheduledweb.schedule.entity.Paging;
 import org.example.scheduledweb.schedule.service.ScheduleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -27,7 +29,7 @@ public class ScheduleController {
      * return : {@link ResponseEntity<ScheduleResponseDto>} JSON 응답
      */
     @PostMapping
-    public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
+    public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody @Valid ScheduleRequestDto requestDto) {
         return new ResponseEntity<>(scheduleService.saveSchedule(requestDto), HttpStatus.CREATED);
     }
 
