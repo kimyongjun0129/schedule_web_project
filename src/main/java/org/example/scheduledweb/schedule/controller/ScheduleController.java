@@ -23,7 +23,7 @@ public class ScheduleController {
     /**
      * 스케쥴 생성 API
      * param : {@link ScheduleRequestDto} 스케쥴 생성 요청 객체
-     * @return : {@link ResponseEntity<ScheduleResponseDto>} JSON 응답
+     * return : {@link ResponseEntity<ScheduleResponseDto>} JSON 응답
      */
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
@@ -32,7 +32,7 @@ public class ScheduleController {
 
     /**
      * 스케쥴 다건 조회 API
-     * @return : {@link  List<ScheduleResponseDto>} JSON 응답
+     * return : {@link  List<ScheduleResponseDto>} JSON 응답
      */
     @GetMapping
     public List<ScheduleResponseDto> findAllSchedule() {
@@ -41,9 +41,9 @@ public class ScheduleController {
 
     /**
      * 스케쥴 단건 조회 API
-     * @param id 식별자
-     * @return : {@link ResponseEntity<ScheduleResponseDto>} JSON 응답
-     * @exception ResponseStatusException 식별자로 조회된 Schedule이 없는 경우 404 Not Found
+     * param id 식별자
+     * return : {@link ResponseEntity<ScheduleResponseDto>} JSON 응답
+     * exception ResponseStatusException 식별자로 조회된 Schedule이 없는 경우 404 Not Found
      */
     @GetMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id) {
@@ -79,5 +79,18 @@ public class ScheduleController {
         scheduleService.deleteSchedule(id, requestDto.getUserId());
         // 성공한 경우
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * 스케줄 페이지 조회 API
+     * return : {@link List<ScheduleResponseDto>} JSON 응답
+     */
+    @GetMapping("/pages")
+    @ResponseBody
+    public List<ScheduleResponseDto> pagination (
+        @RequestParam("pageNum") int pageNum,
+        @RequestParam("pageSize") int pageSize
+    ) {
+        return scheduleService.pagination(pageNum, pageSize);
     }
 }

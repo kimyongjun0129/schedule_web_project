@@ -18,4 +18,6 @@ public interface ScheduleRepository {
     int updateUserNameOrToDoContent(long id, String toDoContent);
 
     int deleteSchedule (long id);
+
+    List<ScheduleResponseDto> pagination(int pageNum, int pageSize);
 }

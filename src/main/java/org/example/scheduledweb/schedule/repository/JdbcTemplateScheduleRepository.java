@@ -87,6 +87,12 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
         return jdbcTemplate.update("delete from schedule where scheduleId = ?", id);
     }
 
+    @Override
+    public List<ScheduleResponseDto> pagination(int pageNum, int pageSize) {
+        String sql = "select * from schedule ORDER BY updateAt DESC LIMIT ? OFFSET ?";
+        return jdbcTemplate.query(sql, scheduleRowMapper(), pageSize, (pageNum-1) * pageSize);
+    }
+
     private RowMapper<ScheduleResponseDto> scheduleRowMapper() {
         return (rs, rowNum) -> new ScheduleResponseDto(
                 rs.getString("userName"),

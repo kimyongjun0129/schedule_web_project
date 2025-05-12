@@ -76,5 +76,10 @@ public class ScheduleServiceImpl implements ScheduleService{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
         }
     }
+
+    @Override
+    public List<ScheduleResponseDto> pagination(int pageNum, int pageSize) {
+        return scheduleRepository.pagination(pageNum, pageSize);
+    }
 }
 
