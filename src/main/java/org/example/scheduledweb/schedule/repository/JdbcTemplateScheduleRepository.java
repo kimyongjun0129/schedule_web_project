@@ -3,13 +3,11 @@ package org.example.scheduledweb.schedule.repository;
 import org.example.scheduledweb.schedule.dto.ScheduleResponseDto;
 import org.example.scheduledweb.schedule.entity.Paging;
 import org.example.scheduledweb.schedule.entity.Schedule;
-import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -48,7 +46,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
                 new ScheduleResponseDto(
                         rs.getString("userName"),
                         rs.getString("toDoContent"),
-                        rs.getDate("updateAt")
+                        rs.getTimestamp("updateAt")
                 )
                 ,scheduleId
         );
@@ -99,7 +97,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
         return (rs, rowNum) -> new ScheduleResponseDto(
                 rs.getString("userName"),
                 rs.getString("todoContent"),
-                rs.getDate("updateAt")
+                rs.getTimestamp("updateAt")
         );
     }
 
@@ -107,7 +105,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
         return (rs, rowNum) -> new Schedule(
                 rs.getString("userName"),
                 rs.getString("todoContent"),
-                rs.getDate("updateAt")
+                rs.getTimestamp("updateAt")
         );
     }
 

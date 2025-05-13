@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.example.scheduledweb.schedule.entity.Schedule;
 
-import java.util.Date;
+import java.sql.Timestamp;
+
 
 @Getter
 @AllArgsConstructor
@@ -12,7 +13,7 @@ public class ScheduleResponseDto {
 
     private String userName;
     private String todoContent;
-    private Date updateAt;
+    private Timestamp updateAt;
 
     public ScheduleResponseDto(Schedule schedule) {
         this.userName = schedule.getUserName();
