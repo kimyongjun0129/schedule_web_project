@@ -46,7 +46,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
                 new ScheduleResponseDto(
                         rs.getString("userName"),
                         rs.getString("toDoContent"),
-                        rs.getTimestamp("updateAt")
+                        rs.getDate("updateAt")
                 )
                 ,scheduleId
         );
@@ -97,7 +97,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
         return (rs, rowNum) -> new ScheduleResponseDto(
                 rs.getString("userName"),
                 rs.getString("todoContent"),
-                rs.getTimestamp("updateAt")
+                rs.getDate("updateAt")
         );
     }
 
@@ -105,7 +105,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
         return (rs, rowNum) -> new Schedule(
                 rs.getString("userName"),
                 rs.getString("todoContent"),
-                rs.getTimestamp("updateAt")
+                rs.getDate("updateAt")
         );
     }
 
