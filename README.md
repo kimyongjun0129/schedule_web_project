@@ -6,6 +6,8 @@
 | 스케쥴 목록 조회 | GET    | /api/schedules             | 요청 Param | 다건 응답 정보 | 200:정상조회 |
 | 스케쥴 수정    | PUT    | /api/schedules/{scheduleID} | 요청 body | 수정 정보    | 200:정상수정 |
 | 스케쥴 삭제    | DELETE | /api/schedules/{scheduleID} | 요청 Param | -        | 200:정상삭제 |
+
+자세한 API : https://documenter.getpostman.com/view/44634184/2sB2qUmQAc
 ------
 ## ERD
 ```mermaid

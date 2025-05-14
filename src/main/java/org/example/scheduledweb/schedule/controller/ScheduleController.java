@@ -7,7 +7,6 @@ import org.example.scheduledweb.schedule.entity.Paging;
 import org.example.scheduledweb.schedule.service.ScheduleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -90,7 +89,6 @@ public class ScheduleController {
      * return : {@link List<ScheduleResponseDto>} JSON 응답
      */
     @GetMapping("/pages")
-    @ResponseBody
     public List<ScheduleResponseDto> pagination (
         @RequestParam("pageNum") int pageNum,
         @RequestParam("pageSize") int pageSize
