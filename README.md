@@ -8,6 +8,7 @@
 | 스케쥴 삭제    | DELETE | /api/schedules/{scheduleID} | 요청 Param | -        | 200:정상삭제 |
 
 자세한 API : https://documenter.getpostman.com/view/44634184/2sB2qUmQAc
+
 ------
 ## ERD
 ```mermaid
